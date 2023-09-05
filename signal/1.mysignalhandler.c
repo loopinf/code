@@ -6,6 +6,8 @@ void sigint_handler(int signo)
 {
   printf("recv SIGINT!\n");
   psignal(signo, "Received signal");
+  sleep(5);
+  printf("done %d\n", signo);
 }
 int main(void)
 {
