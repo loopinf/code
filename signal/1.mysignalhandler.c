@@ -14,6 +14,14 @@ int main(void)
     perror("Cannot handle SIGINT!\n");
     _exit(0);
   }
+  if (signal(SIGUSR1, sigint_handler) ==  SIG_ERR){
+    perror("Cannot handle SIGINT!\n");
+    _exit(0);
+  }
+  if (signal(SIGTSTP, sigint_handler) ==  SIG_ERR){
+    perror("Cannot handle SIGINT!\n");
+    _exit(0);
+  }
   for (;;) pause();
   return 0;
 }
