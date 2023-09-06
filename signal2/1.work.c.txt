@@ -1,0 +1,32 @@
+#include <stdalign.h>
+static int num = 0;
+void calc(int signo){
+  for (int i = 1; i<10; i++)
+  {
+    num += 1;
+  }
+  printf()
+}
+
+static
+
+int main(void)
+{
+  alarm(5);
+  
+  printf("Start \n");
+
+  signal(SIGINT, calc);
+  signal(SIGALRM, alarmhandler);
+  // for (int i = 1;i < 10; i++)
+  // I{
+  //   num = num+1;
+  // }
+  // printf('num = %d\n', num);
+  // return 0;
+  while(1)
+  {
+    pause();
+  }
+  return 0;
+}
