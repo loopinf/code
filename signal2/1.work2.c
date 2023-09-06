@@ -20,11 +20,19 @@ int main(void)
   alarm(5);
 
   printf("start\n");
-  // sigset_t new;
+  // sigset_t new
 
   signal(SIGINT, calc);
   signal(SIGALRM, alarmhandler);
+  sigset_t mask;
 
+  // sigemptyset(&mask);
+  sigfillset(&mask);
+  sigdelset(&mask, SIGINT);
+  sigdelset(&mask, SIGALRM);
+
+  sigprocmask(SIG_BLOCK, &mask, NULL);
+  
   while(1) {
     pause();
   }
