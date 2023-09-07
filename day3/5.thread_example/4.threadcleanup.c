@@ -43,6 +43,10 @@ int main(void) {
 
 //-- 쓰레드가 종료될때까지 기다리다가 return 값을 받아 화면에 출력해주세요
 
+ err = pthread_join(tid1, &thret);
+ printf("thread 1 exit code %ld \n", (size_t)thret);
+ err = pthread_join(tid2, &thret);
+ printf("thread 2 exit code %ld \n", (size_t)thret);
 
 
 
