@@ -5,12 +5,16 @@
 // 쓰레드 함수
 
 int n_counter = 0;
-int n_do_counter = 0;
+int n_do_proc = 0;
 void *t_function(void *data)
 {
   int id = 0;
   id = *((int *)data);
   //---Q 여기서 대기하다가 main코드의 작업시작시점 이후 thread들이 작업을 시작하도록 해주세요.
+  while(1)
+  {
+    if(n_do_proc == 1) {break;}
+  }
 
   while (1)
   {
@@ -49,6 +53,7 @@ int main()
   sleep(1);
 
   // Q-- 이시점에 모든 쓰레드가 작업을 시작하게해주세요. (쓰레드 작업시작)
+  n_do_proc = 1;
 
   // 쓰레드 종료를 기다린다.
   pthread_join(p_thread[0], (void **)&status);
