@@ -53,7 +53,7 @@ int main(void) {
   struct sigaction my_sig_action;
   my_sig_action.sa_flags = SA_SIGINFO;
   my_sig_action.sa_sigaction = sigchildHandler;
-  sigaction(SIGCHLD, &my_sig_action, 0);
+  sigaction(SIGCHLD, &my_sig_action, 0); // SIGCHILD - wait procedure
 
   int n_count = 0;
   printf("ready\n");
@@ -61,13 +61,18 @@ int main(void) {
   int pid2;
   if(pid1 != 0) {
     pid2 = fork();
+    if(pid2 == 0){
+      pid1 = 0;
+    }
   }
   while(1) {
     sleep(1); 
     n_count++;
 
     if(pid1 <= 0) { continue; }
+    printf("==============parent do %d\n", getpid());
     if(n_count == 5) {
+      printf("==============kill \n");
       kill(pid1, SIGSTOP); 
       kill(pid2, SIGSTOP); 
       printf("==============all stop\n");
