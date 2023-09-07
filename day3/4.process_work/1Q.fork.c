@@ -5,7 +5,6 @@
 #include <stdio.h>
  #include <sys/wait.h>
 static long long num = 0;
-static int pid = 0;
 int main(void)
 {  
   printf("start\n");
@@ -20,24 +19,18 @@ int main(void)
 //Q--두 프로세스로 아래 연산을 수행하도록 코드 수정해주세요
 //Q--절반씩 동시 작업이 되도록 코드를 변경해주세요
 
-  pid = fork(); // pid == 0 child process
+  int forked_pid = fork(); // pid == 0 child process
+  long long start_idx = 1;
+  long long end_idx = 2500000000;
+  if (forked_pid == 0) {
+    start_idx = 250000000;
+    end_idx = 5000000000;
+  }
 
-  if (pid==0) {
-    for (long long i = 1; i < 25000000; i++)
+  for (long long i = start_idx; i < end_idx; i++)
     {
       num += 1;
     }
-  }
-  else if (pid>0){
-    for (long long i = 25000001 ; i <  5000000000; i++)
-    {
-      num += 1;
-    }
-  }
-  else {
-    fprintf(stderr, "Fork failed");
-    exit(-1);
-  }
   
   // for (long long i = 1; i < 5000000000; i++)
   // {
@@ -59,5 +52,6 @@ int main(void)
   printf("cutime : %.1f sec\n", (double)buf.tms_cutime / ct);
   printf("cstime : %.1f sec\n", (double)buf.tms_cstime / ct);
 
+  wait(NULL);
   return 0;
 } 
